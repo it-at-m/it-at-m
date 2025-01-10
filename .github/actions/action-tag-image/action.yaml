@@ -1,0 +1,38 @@
+name: "Tag Docker Image"
+description: "Pulls and tags an existing Docker image"
+
+inputs:
+  registry:
+    description: "Image registry to push image to"
+    required: true
+    default: ghcr.io
+  registry-username:
+    description: "Username to authenticate against image registry"
+    required: true
+  registry-password:
+    description: "Password to authenticate against image registry"
+    required: true
+  image-name:
+    description: "Name of the image"
+    required: true
+  existing-tag:
+    description: 'Existing tag'
+    required: true
+  new-tag:
+    description: 'New tag'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Login to Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.registry-username }}
+        password: ${{ inputs.registry-password }}
+    - name: Tag image
+      shell: bash
+      run: |
+        skopeo copy docker://${{ inputs.registry }}/${{ github.repository }}/${{ inputs.image-name }}:${{ inputs.existing-tag }} \
+        docker://${{ inputs.registry }}/${{ github.repository }}/${{ inputs.image-name }}:${{ inputs.new-tag }}
