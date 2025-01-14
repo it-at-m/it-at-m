@@ -38,7 +38,7 @@ runs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Download a single artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
       with:
         name: ${{ inputs.artifact-name }}
     - name: Login to Registry
