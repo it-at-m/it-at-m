@@ -57,12 +57,8 @@ jobs:
     steps:
       - name: Create GitHub Release
         id: create_release
-        uses: softprops/action-gh-release@v2
+        uses: it-at-m/.github/.github/actions/action-create-github-release@main
         with:
-          tag_name: ${{needs.release-maven.outputs.MVN_ARTIFACT_ID}}-${{ github.event.inputs.releaseVersion }}
-          draft: false
-          prerelease: false
-          generate_release_notes: false
-          draft: false
-          prerelease: false
-          generate_release_notes: false
+          artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+          tag-name: ${{ needs.release-maven.outputs.MVN_ARTIFACT_ID }}-${{ github.event.inputs.releaseVersion }}
+          artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
