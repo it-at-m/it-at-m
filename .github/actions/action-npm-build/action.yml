@@ -9,10 +9,18 @@ inputs:
     required: true
     type: string
     description: path where the package.json is located
+  run-lint:
+    required: false
+    default: 'true'
+    description: Controls the execution of the 'npm run lint' script
+  run-test:
+    required: false
+    default: 'true'
+    description: Controls the execution of the 'npm run test' script
 outputs: 
   artifact-name: 
-     description: "name of the artifact upload"
-     value: ${{steps.artifact-name.outputs.artifact-name}}
+    description: "name of the artifact upload"
+    value: ${{steps.artifact-name.outputs.artifact-name}}
 runs:
   using: "composite"
   steps:
@@ -27,9 +35,11 @@ runs:
       run: npm --prefix ./${{inputs.app-path}} ci
       shell: bash
     - name: Run lint
+      if: ${{ inputs.run-lint == 'true' }}
       run: npm run --prefix  ./${{inputs.app-path}} lint
       shell: bash
     - name: Run test
+      if: ${{ inputs.run-test == 'true' }}
       run: npm run  --prefix ./${{inputs.app-path}} test
       shell: bash
     - name: Run build
