@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: build_docs
-        uses: it-at-m/.github/.github/actions/action-build-docs@main
+        uses: it-at-m/lhm_actions/.github/actions/action-build-docs@main
         with:
           app-path: ${{inputs.app-path}}
       - id: deploy_docs
         if: (github.ref_name == 'main')
 
-        uses: it-at-m/.github/.github/actions/action-deploy-docs@main
+        uses: it-at-m/lhm_actions/.github/actions/action-deploy-docs@main

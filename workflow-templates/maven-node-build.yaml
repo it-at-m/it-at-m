@@ -13,19 +13,19 @@ jobs:
           - app-path: # eg. refarch-eai
           - app-path: # eg. refarch-webcomponent
     steps:
-      - uses: it-at-m/.github/.github/actions/action-checkout@main
+      - uses: it-at-m/lhm_actions/.github/actions/action-checkout@main
       - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}}
         id: node
-        uses: it-at-m/.github/.github/actions/action-npm-build@main
+        uses: it-at-m/lhm_actions/.github/actions/action-npm-build@main
         with:
           app-path:  "${{ matrix.app-path }}"
       - if:  ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}}
         id: maven
-        uses: it-at-m/.github/.github/actions/action-maven-build@main
+        uses: it-at-m/lhm_actions/.github/actions/action-maven-build@main
         with:
           app-path: "${{ matrix.app-path }}"
       - if: github.ref == 'refs/heads/main'
-        uses: it-at-m/.github/.github/actions/action-build-image@main
+        uses: it-at-m/lhm_actions/.github/actions/action-build-image@main
         with:
           path: "${{  matrix.app-path }}"
           image-name: "${{  matrix.app-path }}"

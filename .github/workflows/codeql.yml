@@ -80,7 +80,7 @@ jobs:
       matrix:
         build-path: ${{ fromJSON(inputs.java-build-paths) }}
     steps:
-      - uses: it-at-m/.github/.github/actions/action-codeql@main
+      - uses: it-at-m/lhm_actions/.github/actions/action-codeql@main
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ inputs.java-buildmode }}
@@ -93,7 +93,7 @@ jobs:
     needs: check-changes
     if: inputs.analyze-javascript-typescript-vue && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true')
     steps:
-      - uses: it-at-m/.github/.github/actions/action-codeql@main
+      - uses: it-at-m/lhm_actions/.github/actions/action-codeql@main
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ inputs.analysis-query }}
@@ -103,7 +103,7 @@ jobs:
     needs: check-changes
     if: inputs.analyze-python && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true')
     steps:
-      - uses: it-at-m/.github/.github/actions/action-codeql@main
+      - uses: it-at-m/lhm_actions/.github/actions/action-codeql@main
         with:
           codeql-language: python
           codeql-query: ${{ inputs.analysis-query }}
